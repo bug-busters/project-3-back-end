@@ -22,6 +22,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// setup mongodb
+var mongoConfig = require('./lib/mongodb');
+var mongoose = require('mongoose');
+mongoose.connect(mongoConfig.url);
+
+
+// initialize passport
+var passport = require('./lib/passport');
+app.use(passport.initialize());
+
+
 app.use('/', routes);
 app.use('/users', users);
 
@@ -55,6 +66,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
