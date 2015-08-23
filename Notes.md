@@ -9,7 +9,21 @@ $ express
 $ npm install
 ```
 
-3. Install additional packages
+3. Install additional packages for databases
 ```bash
-$ npm install async dotenv pg pg-hstore sequelize sequelize-cli
+$ npm install --save pg pg-hstore sequelize sequelize-cli mongoose connect-mongo
 ```
+
+4. For authentication we need passport.js
+```bash
+$ npm install --save passport passport-local uuid bcrypt
+
+5. For creating user sessions
+```bach
+$ npm install --save express-sessions
+```
+
+6. Install additional packages
+```bash
+$ npm install --save async dotenv
+
