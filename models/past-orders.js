@@ -54,23 +54,23 @@ module.exports = function(mongoose) {
   });
 
   pastOrderSchema.virtual('total').get(function() {
-        var total = 0.00;
+    var total = 0.00;
 
-        this.products.forEach(function(product) {
-            total += product.price * product.quantity;
-        });
+    this.products.forEach(function(product) {
+        total += product.price * product.quantity;
+    });
 
-        return total;
+    return total;
   });
 
   pastOrderSchema.virtual('subtotal').get(function() {
-        var subTotalArr = {};
+    var subTotalArr = {};
 
-        this.products.forEach(function(product) {
-            subTotalArr[product.sku] = product.price * product.quantity;
-        });
+    this.products.forEach(function(product) {
+        subTotalArr[product.sku] = product.price * product.quantity;
+    });
 
-        return subTotalArr;
+    return subTotalArr;
   });
 
   var PastOrder = mongoose.model('PastOrder', pastOrderSchema);

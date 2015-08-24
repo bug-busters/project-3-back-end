@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 var uuid = require('uuid');
 require('dotenv').load();
 var mongoose = require('mongoose');
+var cors = require('cors');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -27,6 +28,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: false
 }));
+
+app.use(cors());
 app.use(session({
   secret: process.env.SESSION_SECRET,
   saveUninitialized: false,
