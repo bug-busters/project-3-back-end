@@ -31,11 +31,9 @@ var mongoConfig = require('./lib/mongodb');
 var mongoose = require('mongoose');
 mongoose.connect(mongoConfig.url);
 
-
 // initialize passport
 var passport = require('./lib/passport');
 app.use(passport.initialize());
-
 
 app.use('/', routes);
 app.use('/users', users);
