@@ -29,6 +29,14 @@ module.exports = function(sequelize, Datatype) {
           validate: {
             isDecimal: true
           }
+        },
+        quantity: {
+          type: Number,
+          required: true,
+          unique: true,
+          validate: {
+            isInt: true
+          }
         }
       }
     ],
