@@ -71,7 +71,7 @@ module.exports = function(mongoose) {
         });
 
         return subTotalArr;
-    });
+  });
 
   var PastOrder = mongoose.model('PastOrder', pastOrderSchema);
 
