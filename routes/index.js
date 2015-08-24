@@ -5,7 +5,7 @@ var async = require('async');
 var router = express.Router();
 var passport = require('../lib/passport');
 var bcrypt = require('bcrypt');
-var User = require('../models/user');
+var models = require('../models/');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -30,6 +30,7 @@ router.use(function(req, res, next) {
 
 router.route('/login')
 	.get(function(req, res, next) {
+		console.log(req.body);
 		res.sendStatus(405);
 	})
 	.post(passport.authenticate('local', {
@@ -68,8 +69,10 @@ router.route('/signup')
 				bcrypt.hash(req.body.password, salt, calllater);
 			},
 			function(hash, calllater) {
-				User.create({
+				models.User.create({
 					email: req.body.email,
+					firstName: req.body.firstName,
+					lastName: req.body.lastName,
 					password: hash,
 					phone_number: req.body.phone_number,
 					is_admin: req.body.is_admin
