@@ -31,7 +31,7 @@ router.route('/:id')
   // Show by ID request
   .all(function(req, res, next) {
     models.Product.findById(req.params.id)
-      .then(function(user) {
+      .then(function(product) {
         res.locals.product = product;
         next();
       },
@@ -51,7 +51,7 @@ router.route('/:id')
       });
   })
   .patch(function(req, res) {
-    //update product route
+    //updates the product
     res.locals.product.update(req.body)
       .then(function(product) {
         res.json(product);
@@ -61,10 +61,10 @@ router.route('/:id')
         console.log('error in updating product');
       });
   })
-  delete(function(res, req) {
+  .delete(function(res, req) {
     //delete product route
     res.sendStatus(404);
-    console.log('error in updating the product');
+    console.log('error in deleting the product');
   })
   .all(function(error, req, res, next) {
     res.sendStatus(404);
