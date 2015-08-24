@@ -7,6 +7,14 @@ mongoose.connect('mongodb://localhost/syntactic_sugar');
 var Schema = mongoose.Schema;
 
 var productSchema = new Schema({
+	sku: {
+		type: Number,
+		required: true,
+		unique: true,
+		validate: {
+			isInt: true
+		}
+	},
 	title: {
 		type: String,
 		required: true,
@@ -18,7 +26,10 @@ var productSchema = new Schema({
 	},
 	price: {
 		type: Number,
-		required: true
+		required: true,
+		validate: {
+			isDecimal: true
+		}
 	},
 	image: String
 }, {
