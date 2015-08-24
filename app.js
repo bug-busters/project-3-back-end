@@ -6,7 +6,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-console.log(MongoStore);
 var bodyParser = require('body-parser');
 var uuid = require('uuid');
 require('dotenv').load();
