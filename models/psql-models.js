@@ -30,8 +30,26 @@ var Product = sequelize.define('Product', {
 	}
 });
 
+var Cart = sequelize.define('Cart', {
+	id: {
+		type: Sequelize.INTEGER,
+		autoIncrement: true,
+		primaryKey: true,
+		allowNull: false
+	},
+	sku: {
+		type: Sequelize.INTEGER,
+		allowNull: false
+	},
+	quantity: {
+		type: Sequelize.INTEGER,
+		allowNull: false
+	}
+});
+
 var models = {
-	Product: Product
+	Product: Product,
+	Cart: Cart
 };
 
 module.exports = models;
