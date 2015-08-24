@@ -7,10 +7,7 @@ module.exports = function(mongoose) {
 		sku: {
 			type: Number,
 			required: true,
-			unique: true,
-			validate: {
-				isInt: true
-			}
+			unique: true
 		},
 		title: {
 			type: String,
@@ -23,23 +20,14 @@ module.exports = function(mongoose) {
 		},
 		price: {
 			type: Number,
-			required: true,
-			validate: {
-				isDecimal: true
-			}
+			required: true
 		},
 		stock: {
 			type: Number,
-			required: true,
-			validate: {
-				isInt: true
-			}
+			required: true
 		},
 		image: {
 			type: String,
-			validate: {
-				isURL: true
-			}
 		}
 	}, {
 		timestamps: true
