@@ -40,7 +40,7 @@ async.series([
         	description: "A simple white cake with vanilla butter cream frosting.",
         	price: 2.25,
         	stock: 25,
-        	image: "<img src="img/2.jpg" class="cupcake-photo">"
+        	image: "img/2.jpg"
         	}).then(done);
       }
       function(cb){
@@ -50,7 +50,7 @@ async.series([
         	description: "A simple white cake with vanilla butter cream frosting.",
         	price: 2.50,
         	stock: 22,
-        	image: "<img src="img/3.jpg" class="cupcake-photo">"
+        	image: "img/3.jpg"
         	}).then(done);
       }
       function(cb){
@@ -60,43 +60,43 @@ async.series([
         	description: "Raspberry filled chocolate cake with raspberry cream cheese frosting.",
         	price: 2.75,
         	stock: 6,
-        	image: "<img src="img/4.jpg" class="cupcake-photo">"
+        	image: "img/4.jpg"
         	}).then(done);
       }
       function(cb){
         models.User.create({
         	sku: 444927,
         	title: "Red Velvet Gem",
-        	description: "Rich red velvet cake with cream cheese frosting."
+        	description: "Rich red velvet cake with cream cheese frosting.",
         	price: 2.25,
         	stock: 3,
-        	image: "<img src="img/5.jpg" class="cupcake-photo">"
+        	image: "img/5.jpg"
         	}).then(done);
       }
       function(cb){
         models.User.create({
         	sku: 308954,
         	title: "Code Confetti",
-        	description: "Zesty lemon cake with vanilla butter cream frosting and sugar confetti garnish."
+        	description: "Zesty lemon cake with vanilla butter cream frosting and sugar confetti garnish.",
         	price: 2.50,
         	stock: 13,
-        	image: "<img src="img/6.jpg" class="cupcake-photo">"
+        	image: "img/6.jpg"
         	}).then(done);
       }
       function(cb){
         models.User.create({
         	sku: 654891,
         	title: "Debug Under Stars",
-        	description: "Extra-dark caffeinated chocolate cake to keep you up when programming late into the night."
+        	description: "Extra-dark caffeinated chocolate cake to keep you up when programming late into the night.",
         	price: 2.75,
         	stock: 13,
-        	image: "<img src="img/7.jpg" class="cupcake-photo">"
+        	image: "img/7.jpg"
         	}).then(done);
       }
-    ], function(err, results){
+    }, function(err, results){
       console.log("DB is ready");
     });
   }
 ], function(err, results){
-  console.log("DB is ready")
+  console.log("DB is ready");
 });
