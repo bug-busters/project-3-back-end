@@ -1,6 +1,7 @@
 'use strict';
 
-// var db = new Mongo().getDB('syntactic_sugar');
+var db = new Mongo().getDB('syntactic_sugar');
+
 // db.users.remove({});
 
 // db.users.insert({
@@ -20,84 +21,60 @@
 // 	}
 // });
 
-var async = require('async');
 
-var models = require('../models');
+db.products.remove({});
 
-async.series([
-  function (cb){ //Clear DB
-    models.Product.remove({where: {}}).then(cb);
-  },
-  function (cb){ //Seed DB
-    async.parallel([
-      function (cb){
-        models.Product.create({
-          sku: 170432,
-          title: 'Vanilla Javascript',
-          description: 'A simple white cake with vanilla butter cream frosting.',
-          price: 2.25,
-          stock: 25,
-          image: 'img/2.jpg'
-          }).then(done);
-      },
-      function (cb){
-        models.Product.create({
-          sku: 921079,
-          title: 'Chocolate 401',
-          description: 'A simple white cake with vanilla butter cream frosting.',
-          price: 2.50,
-          stock: 22,
-          image: 'img/3.jpg'
-          }).then(done);
-      },
-      function (cb){
-        models.Product.create({
-          sku: 129943,
-          title: 'Ruby on Chocolate',
-          description: 'Raspberry filled chocolate cake with raspberry cream cheese frosting.',
-          price: 2.75,
-          stock: 6,
-          image: 'img/4.jpg'
-          }).then(done);
-      },
-      function (cb){
-        models.Product.create({
-          sku: 444927,
-          title: 'Red Velvet Gem',
-          description: 'Rich red velvet cake with cream cheese frosting.',
-          price: 2.25,
-          stock: 3,
-          image: 'img/5.jpg'
-          }).then(done);
-      },
-      function (cb){
-        models.Product.create({
-          sku: 308954,
-          title: 'Code Confetti',
-          description: 'Zesty lemon cake with vanilla butter cream frosting and sugar confetti garnish.',
-          price: 2.50,
-          stock: 13,
-          image: 'img/6.jpg'
-          }).then(done);
-      },
-      function (cb){
-        models.Product.create({
-          sku: 654891,
-          title: 'Debug Under Stars',
-          description: 'Extra-dark caffeinated chocolate cake to keep you up when programming late into the night.',
-          price: 2.75,
-          stock: 13,
-          image: 'img/7.jpg'
-          }).then(done);
-      }
-    ], function (err, results){
 
-    }, function (err, results){
-      if (err) { console.log(err);}
-      console.log('Products created');
-      cb();
-    });
-  }
-], function (err, results){
-  console.log('DB is ready');
+db.products.insert({
+  sku: 170431,
+  title: 'Vanilla Javascript',
+  description: 'A simple white cake with vanilla butter cream frosting.',
+  price: 2.25,
+  stock: 25,
+  image: 'img/2.jpg'
+});
+
+db.products.insert({
+  sku: 921079,
+  title: 'Chocolate 404',
+  description: 'A chocolate cake so delicious, it will be devoured before anyone else can find it.',
+  price: 2.50,
+  stock: 26,
+  image: 'img/3.jpg'
+});
+
+db.products.insert({
+  sku: 170432,
+  title: 'Ruby on Chocolate',
+  description: 'Raspberry filled chocolate cake with raspberry cream cheese frosting.',
+  price: 2.75,
+  stock: 35,
+  image: 'img/4.jpg'
+});
+
+db.products.insert({
+  sku: 170433,
+  title: 'Red Velvet Gem',
+  description: 'Rich red velvet cake with cream cheese frosting.',
+  price: 2.25,
+  stock: 15,
+  image: 'img/5.jpg'
+});
+
+db.products.insert({
+  sku: 270432,
+  title: 'Code Confetti',
+  description: 'Zesty lemon cake with vanilla butter cream frosting and sugar confetti garnish.',
+  price: 2.25,
+  stock: 15,
+  image: 'img/6.jpg'
+});
+
+db.products.insert({
+  sku: 181432,
+  title: 'Late Night Debugging',
+  description: 'Extra-dark caffeinated chocolate cake to keep you up when programming late into the night.',
+  price: 2.25,
+  stock: 25,
+  image: 'img/7.jpg'
 });
