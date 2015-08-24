@@ -19,13 +19,13 @@ var sequelize = new Sequelize(database.name, database.username, database.passwor
 
 var Product = sequelize.define('Product', {
 	id: {
-		type: Sequelize.INTEGER.UNSIGNED,
+		type: Sequelize.INTEGER,
 		autoIncrement: true,
 		primaryKey: true,
 		allowNull: false
 	},
 	sku: {
-		type: Sequelize.INTEGER.UNSIGNED,
+		type: Sequelize.INTEGER,
 		allowNull: false
 	}
 });
