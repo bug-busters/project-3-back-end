@@ -23,6 +23,7 @@ var models = {};
 
 models.Product = require('./product')(mongoose, models);
 models.User = require('./user');
+models.Address = require('./address');
 
 Object.keys(models).forEach(function(modelName) {
 	if ('associate' in models[modelName]) {
