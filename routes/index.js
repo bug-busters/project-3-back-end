@@ -3,7 +3,7 @@
 var express = require('express');
 var async = require('async');
 var router = express.Router();
-var passport = require('../lib/passport');
+var passport = require('passport');
 var bcrypt = require('bcrypt');
 var models = require('../models/');
 
@@ -30,8 +30,7 @@ router.use(function(req, res, next) {
 
 router.route('/login')
 	.get(function(req, res, next) {
-		console.log(req.body);
-		res.sendStatus(405);
+		res.sendStatus(200);
 	})
 	.post(passport.authenticate('local', {
 		successRedirect: '/',
