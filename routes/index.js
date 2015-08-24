@@ -55,7 +55,7 @@ router.route('/signup')
 		console.log('inside /singup');
 
 		console.log(req.body);
-		if (!req.body || !req.body.username || !req.body.password) {
+		if (!req.body || !req.body.email || !req.body.password) {
 			var err = new Error('No credentials.');
 			return next(err);
 		}
@@ -63,28 +63,22 @@ router.route('/signup')
 		async.waterfall([
 			function(calllater) {
 				bcrypt.genSalt(16, calllater);
-				console.log('bcrypt.genSalt');
 			},
 			function(salt, calllater) {
 				bcrypt.hash(req.body.password, salt, calllater);
-				console.log('bcrypt.hash');
 			},
 			function(hash, calllater) {
-				console.log('call later: ', calllater);
-				console.log('===req.body.username: ', req.body.username);
 				User.create({
 					email: req.body.email,
 					password: hash,
 					phone_number: req.body.phone_number,
 					is_admin: req.body.is_admin
 				}).then(function(user) {
-					console.log('create user then');
 					calllater(null, user);
 				}).catch(calllater);
 			}
 		], function(err, result) {
 			if (err) {
-				// make error handler
 				return next(err);
 			}
 			res.sendStatus(201);
