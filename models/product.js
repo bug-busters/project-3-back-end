@@ -31,7 +31,12 @@ var productSchema = new Schema({
 			isDecimal: true
 		}
 	},
-	image: String
+	image: {
+		type: String,
+		validate: {
+			isURL: true
+		}
+	}
 }, {
 	timestamps: true
 });
