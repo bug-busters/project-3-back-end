@@ -44,9 +44,11 @@ app.use(session({
   }
 }));
 
+
 // initialize passport
 var passport = require('./lib/passport');
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/users', users);
