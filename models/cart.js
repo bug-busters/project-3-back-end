@@ -8,15 +8,40 @@ module.exports = function(sequelize, Datatype) {
 			primaryKey: true,
 			allowNull: false
 		},
-		sku: {
-			type: Datatype.INTEGER,
-			allowNull: false
-		},
-		quantity: {
-			type: Datatype.INTEGER,
-			allowNull: false
-		}
+		products: [
+      {
+        sku: {
+          type: Number,
+          required: true,
+          unique: true,
+          validate: {
+            isInt: true
+          }
+        },
+        title: {
+          type: String,
+          required: true,
+          unique: true
+        },
+        price: {
+          type: Number,
+          required: true,
+          validate: {
+            isDecimal: true
+          }
+        },
+        quantity: {
+          type: Number,
+          required: true,
+          unique: true,
+          validate: {
+            isInt: true
+          }
+        }
+      }
+    ]
 	});
+
 
 	return Cart;
 };

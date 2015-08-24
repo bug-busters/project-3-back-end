@@ -1,49 +1,80 @@
 'use strict';
 
-var mongoose = require('mongoose');
+module.exports = function(mongoose) {
+  var Schema = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost/syntactic_sugar');
+  var pastOrderSchema = new Schema(
+    {
+    userId: {
+      type: Number,
+      required: true,
+      validate: {
+        isInt: true
+      }
+    },
+    products: [
+      {
+        sku: {
+          type: Number,
+          required: true,
+          unique: true,
+          validate: {
+            isInt: true
+          }
+        },
+        title: {
+          type: String,
+          required: true,
+          unique: true
+        },
+        price: {
+          type: Number,
+          required: true,
+          validate: {
+            isDecimal: true
+          }
+        },
+        quantity: {
+          type: Number,
+          required: true,
+          unique: true,
+          validate: {
+            isInt: true
+          }
+        }
+      }
+    ],
+    status: {
+      type: String,
+      required: true
+    }
 
-var Schema = mongoose.Schema;
+  }, {
+    timestamps: true
+  });
 
-var pastOrderSchema = new Schema({
-  userId: {
-    type: Number,
-    required: true,
-    validate: {
-      isInt: true
-    }
-  },
-  sku: {
-    type: Number,
-    required: true,
-    unique: true,
-    validate: {
-      isInt: true
-    }
-  },
-  title: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  price: {
-    type: Number,
-    required: true,
-    validate: {
-      isDecimal: true
-    }
-  },
-  image: {
-    type: String,
-    validate: {
-      isURL: true
-    }
-  }
-}, {
-  timestamps: true
-});
+  pastOrderSchema.virtual('total').get(function() {
+        var total = 0.00;
+
+        this.products.forEach(function(product) {
+            total += product.price * product.quantity;
+        });
+
+        return total;
+  });
+
+  pastOrderSchema.virtual('subtotal').get(function() {
+        var subTotalArr = {};
+
+        this.products.forEach(function(product) {
+            subTotalArr[product.sku] = product.price * product.quantity;
+        });
+
+        return subTotalArr;
+  });
+
+  var PastOrder = mongoose.model('PastOrder', pastOrderSchema);
+
+  return PastOrder;
+};
+
