@@ -26,6 +26,11 @@ module.exports = function(sequelize,, DataTypes) {
 			type: DataTypes.STRING,
 			allowNull: false,
 			unique: true,
+		},
+		is_admin: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			defaultValue: 0
 		}
 	}, {
 		timestamps: true,
