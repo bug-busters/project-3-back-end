@@ -37,24 +37,11 @@ module.exports = function(sequelize, Datatype) {
           validate: {
             isInt: true
           }
-        },
-        subtotal: {
-          type: Number,
-          required: true,
-          validate: {
-            isDecimal: true
-          }
         }
       }
-    ],
-    total: {
-      type: Number,
-      required: true,
-      validate: {
-        isDecimal: true
-      }
-    }
+    ]
 	});
+
 
 	return Cart;
 };

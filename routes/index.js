@@ -15,6 +15,19 @@ router.get('/', function(req, res, next) {
 });
 
 /* AUTHENTICATION ROUTES */
+
+router.use(function(req, res, next) {
+  if(req.session && !req.session.currRequestRoute) {
+      req.session.currRequestRoute = req.path;
+  } else {
+    req.session && (function() {
+        req.session.lastRequestRoute = req.session.currRequestRoute;
+        req.session.currRequestRoute = req.path;
+      })();
+  }
+  next();
+});
+
 router.route('/login')
 	.get(function(req, res, next) {
 		res.sendStatus(405);
@@ -60,20 +73,10 @@ router.route('/signup')
 				console.log('call later: ', calllater);
 				console.log('===req.body.username: ', req.body.username);
 				User.create({
-					username: req.body.username,
 					email: req.body.email,
 					password: hash,
-					dob: req.body.dob,
 					phone_number: req.body.phone_number,
-					address_book: {
-						primary_address: {
-							name: {
-								last: req.body.lastname,
-								first: req.body.firstname
-							},
-							address: req.body.address
-						}
-					}
+					is_admin: req.body.is_admin
 				}).then(function(user) {
 					console.log('create user then');
 					calllater(null, user);

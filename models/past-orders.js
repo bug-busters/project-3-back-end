@@ -41,23 +41,9 @@ module.exports = function(mongoose) {
           validate: {
             isInt: true
           }
-        },
-        subtotal: {
-          type: Number,
-          required: true,
-          validate: {
-            isDecimal: true
-          }
         }
       }
     ],
-    total: {
-      type: Number,
-      required: true,
-      validate: {
-        isDecimal: true
-      }
-    },
     status: {
       type: String,
       required: true
@@ -65,6 +51,26 @@ module.exports = function(mongoose) {
 
   }, {
     timestamps: true
+  });
+
+  pastOrderSchema.virtual('total').get(function() {
+        var total = 0.00;
+
+        this.products.forEach(function(product) {
+            total += product.price * product.quantity;
+        });
+
+        return total;
+  });
+
+  pastOrderSchema.virtual('subtotal').get(function() {
+        var subTotalArr = {};
+
+        this.products.forEach(function(product) {
+            subTotalArr[product.sku] = product.price * product.quantity;
+        });
+
+        return subTotalArr;
   });
 
   var PastOrder = mongoose.model('PastOrder', pastOrderSchema);

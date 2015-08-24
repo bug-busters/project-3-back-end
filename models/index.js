@@ -21,15 +21,17 @@ mongoose.connect('mongodb://localhost/syntactic_sugar');
 
 var models = {};
 
+models.sequelize = sequelize;
+models.mongoose = mongoose;
+
 models.Product = require('./product')(mongoose, models);
 models.User = require('./user');
+models.Address = require('./address');
 
 Object.keys(models).forEach(function(modelName) {
 	if ('associate' in models[modelName]) {
 		models[modelName].associate(models);
 	}
 });
-
-sequelize.sync();
 
 module.exports = models;
