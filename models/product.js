@@ -28,6 +28,13 @@ module.exports = function(mongoose) {
 				isDecimal: true
 			}
 		},
+		stock: {
+			type: Number,
+			required: true,
+			validate: {
+				isInt: true
+			}
+		},
 		image: {
 			type: String,
 			validate: {
