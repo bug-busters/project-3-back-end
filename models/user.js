@@ -1,58 +1,40 @@
 'use strict';
 
-var mongoose = require('mongoose');
+module.exports = function(sequelize,, DataTypes) {
 
-var userSchema = new mongoose.Schema({
-	username: {
-		type: String,
-		required: true,
-		unique: true
-	},
-	email: {
-		type: String,
-		required: false,
-		unique: true,
-		validates: {
-			isEmail: true
-		}
-	},
-	password: {
-		type: String,
-		required: false,
-		unique: false
-	},
-	dob: {
-		type: String,
-		match: /\d{4}-\d{2}-\d{2}/
-	},
-	phone_number: {
-		type: String,
-		required: true,
-		unique: true,
-	},
-	// Address Book Part
-	address_book: {
-		primary_address: {
-			name: {
-				last: {
-					type: String,
-					required: true
-				},
-				first: {
-					type: String,
-					required: true
-				}
-			},
-			address: {
-				type: String,
-				required: false
+	var User = sequelize.define('User', {
+	  id: {
+	    type: Datatypes.INTEGER,
+	    autoIncrement: true,
+	    primaryKey: true,
+	    allowNull: false
+	  },
+	  email: {
+			type: DataTypes.STRING,
+			required: false,
+			unique: true,
+			validates: {
+				isEmail: true
 			}
+	  },
+	  password : {
+	    type : DataTypes.STRING,
+	    allowNull : false,
+	    unique : false
+	  },
+	  phone_number: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			unique: true,
 		}
-	}
-}, {
-	timestamps: true,
-});
+	}, {
+		timestamps: true,
+		classMethods: {
+      associate: function(models){
+        User.hasMany(models.Address)
+      }
+    }
+	});
 
-var User = mongoose.model('User', userSchema);
-
-module.exports = User;
+	return User;
+}
