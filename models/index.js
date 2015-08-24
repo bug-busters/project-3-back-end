@@ -21,9 +21,8 @@ mongoose.connect('mongodb://localhost/syntactic_sugar');
 
 var models = {};
 
-models.ProductP = require('./productp');
-models.ProductM = require('./productm')(mongoose, models);
-models.User = require('./user')(mongoose, models);
+models.Product = require('./product')(mongoose, models);
+models.User = require('./user');
 
 sequelize.sync();
 
