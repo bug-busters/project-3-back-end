@@ -4,8 +4,13 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+console.log(MongoStore);
 var bodyParser = require('body-parser');
+var uuid = require('uuid');
+require('dotenv').load();
+var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -23,13 +28,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: false
 }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// setup mongodb
-var mongoConfig = require('./lib/mongodb');
-var mongoose = require('mongoose');
-mongoose.connect(mongoConfig.url);
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  saveUninitialized: false,
+  store: new MongoStore ({
+		mongooseConnection: mongoose.connection
+  }),
+  resave: false,
+  genid: function(req) {
+    return uuid.v4({
+      rng: uuid.nodeRNG
+    });
+  },
+  cookie: {
+    maxAge: 300000 // 5 minutes
+  }
+}));
 
 // initialize passport
 var passport = require('./lib/passport');
@@ -44,6 +58,8 @@ app.use(function(req, res, next) {
 	err.status = 404;
 	next(err);
 });
+
+app.use('/static', express.static(path.join(__dirname, 'public')));
 
 // error handlers
 
