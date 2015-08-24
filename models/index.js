@@ -24,6 +24,12 @@ var models = {};
 models.Product = require('./product')(mongoose, models);
 models.User = require('./user');
 
+Object.keys(models).forEach(function(modelName) {
+	if ('associate' in models[modelName]) {
+		models[modelName].associate(models);
+	}
+});
+
 sequelize.sync();
 
 module.exports = models;
