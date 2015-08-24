@@ -25,8 +25,8 @@ models.sequelize = sequelize;
 models.mongoose = mongoose;
 
 models.Product = require('./product')(mongoose, models);
-models.User = require('./user');
-models.Address = require('./address');
+models.User = sequelize.import('./user');
+models.Address = sequelize.import('./address');
 
 Object.keys(models).forEach(function(modelName) {
 	if ('associate' in models[modelName]) {
