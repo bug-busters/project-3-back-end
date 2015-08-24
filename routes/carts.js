@@ -11,15 +11,15 @@ router.route('/')
       .then(function(carts){
         res.json(carts);
       }),
-      function(reason) {
-        console.log(reason);
+      function(error) {
+        console.log(error);
       }
   }).post(function(req, res) {
     // Create a new cart
     models.Cart.create(req.body)
       .then(function(carts) {
         res.json(carts);
-        console.log("New cart created.")
+        console.log("New cart created.");
       },
       function(error) {
         console.log(error);
@@ -30,7 +30,7 @@ router.route('/')
 router.route('/:id')
   // Show cart by ID
   .all(function(req, res, next) {
-    models.Cart.findById(req.params.)
+    models.Cart.findById(req.params.id)
     .then(function(user) {
       res.locals.cart = cart;
       next();
@@ -58,12 +58,12 @@ router.route('/:id')
       },
       function(error) {
         res.sendStatus(500);
-        console.log('error is updating the cart')
+        console.log('error is updating the cart');
       });
   })
   .delete(function(req, res) {
     res.sendStatus(404);
-    console.log('error in deleting the product')
+    console.log('error in deleting the product');
   })
   .all(function(error, req, res, next) {
     res.sendStatus(404);
