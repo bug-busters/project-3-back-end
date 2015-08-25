@@ -9,7 +9,7 @@ router.route('/:user_id')
     //Carts index
     models.Cart.find({ 'user_id': req.params.id })
       .then(function (cart){
-        res.json(cart);
+        res.json(cart.products);
       },
       function (error) {
         console.log(error);
