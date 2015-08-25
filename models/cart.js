@@ -1,47 +1,37 @@
 'use strict';
 
-module.exports = function(sequelize, Datatype) {
+module.exports = function(sequelize, DataTypes) {
 	var Cart = sequelize.define('Cart', {
 		id: {
-			type: Datatype.INTEGER,
+			type: DataTypes.INTEGER,
 			autoIncrement: true,
 			primaryKey: true,
 			allowNull: false
 		},
-		products: [
-      {
-        sku: {
-          type: Number,
-          required: true,
-          unique: true,
-          validate: {
-            isInt: true
-          }
-        },
-        title: {
-          type: String,
-          required: true,
-          unique: true
-        },
-        price: {
-          type: Number,
-          required: true,
-          validate: {
-            isDecimal: true
-          }
-        },
-        quantity: {
-          type: Number,
-          required: true,
-          unique: true,
-          validate: {
-            isInt: true
-          }
-        }
-      }
-    ]
-	});
+		user_id: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
 
+		},
+		products: {
+			type: DataTypes.JSON,
+		}
+	}, {
+		classMethods: {
+			getSubtotals: function() {
+				var subtotals = [];
+				this.products.forEach(function(product) {
+					subtotals.push(product.price * product.quantity);
+				});
+
+				return subtotals;
+			},
+
+			getTotal: function() {
+				return this.getSubtotals().reduce();
+			}
+		}
+	});
 
 	return Cart;
 };
