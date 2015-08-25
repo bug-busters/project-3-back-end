@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
 		user_id: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-
+			unique: true
 		},
 		products: {
 			type: DataTypes.JSON,
