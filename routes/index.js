@@ -30,12 +30,24 @@ router.use(function(req, res, next) {
 
 router.route('/login')
 	.get(function(req, res, next) {
-		res.sendStatus(200);
+		res.sendStatus(405);
 	})
-	.post(passport.authenticate('local', {
-		successRedirect: '/',
-		failureRedirect: '/login'
-	}));
+	.post(function(req, res, next) {
+		passport.authenticate('local', function(err, user, info) {
+			if(err) {
+				return next(err);
+			}
+			if(!user) {
+				return res.sendStatus(404);
+			}
+			req.login(user, function(err) {
+				if(err) {
+					return next(err);
+				}
+				res.sendStatus(200);
+			});
+		})(req, res, next);
+	});
 
 router.route('/logout')
 	.all(function(req, res, next) {
@@ -54,8 +66,8 @@ router.route('/signup')
 	.post(function(req, res, next) {
 		console.log('inside /singup');
 
-		console.log(req.body);
 		if (!req.body || !req.body.email || !req.body.password) {
+			console.log(req.body);
 			var err = new Error('No credentials.');
 			return next(err);
 		}
@@ -74,8 +86,11 @@ router.route('/signup')
 					lastName: req.body.lastName,
 					password: hash,
 					phone_number: req.body.phone_number,
-					is_admin: req.body.is_admin
+					is_admin: false
 				}).then(function(user) {
+					req.login(user, function(err) {
+						if (err) { return; }
+					});
 					calllater(null, user);
 				}).catch(calllater);
 			}
