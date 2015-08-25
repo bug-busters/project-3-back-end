@@ -7,7 +7,6 @@ var model = require('../models');
 router.route('/')
   .get(function (req, res) {
     //Products index
-    console.log(model.Product);
     model.Product.find({})
       .then(function (products) {
         res.json(products);
