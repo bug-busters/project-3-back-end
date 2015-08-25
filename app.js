@@ -31,7 +31,13 @@ app.use(bodyParser.urlencoded({
 	extended: false
 }));
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5000",
+  credentials : true
+}));
+
+app.options('*', cors());
+
 app.use(session({
   secret: process.env.SESSION_SECRET,
   saveUninitialized: false,
