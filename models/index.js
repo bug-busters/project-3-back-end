@@ -25,6 +25,7 @@ models.sequelize = sequelize;
 models.mongoose = mongoose;
 
 models.Product = require('./product')(mongoose, models);
+models.Cart = sequelize.import('./cart');
 models.User = sequelize.import('./user');
 models.Address = sequelize.import('./address');
 
