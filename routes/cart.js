@@ -68,3 +68,5 @@ router.route('/:id')
   .all(function(error, req, res, next) {
     res.sendStatus(404);
   });
+
+module.exports = router;
