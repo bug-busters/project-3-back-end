@@ -17,15 +17,15 @@ router.get('/', function(req, res, next) {
 /* AUTHENTICATION ROUTES */
 
 router.use(function(req, res, next) {
-  if(req.session && !req.session.currRequestRoute) {
-      req.session.currRequestRoute = req.path;
-  } else {
-    req.session && (function() {
-        req.session.lastRequestRoute = req.session.currRequestRoute;
-        req.session.currRequestRoute = req.path;
-      })();
-  }
-  next();
+	if (req.session && !req.session.currRequestRoute) {
+		req.session.currRequestRoute = req.path;
+	} else {
+		req.session && (function() {
+			req.session.lastRequestRoute = req.session.currRequestRoute;
+			req.session.currRequestRoute = req.path;
+		})();
+	}
+	next();
 });
 
 router.route('/login')
@@ -34,17 +34,17 @@ router.route('/login')
 	})
 	.post(function(req, res, next) {
 		passport.authenticate('local', function(err, user, info) {
-			if(err) {
+			if (err) {
 				return next(err);
 			}
-			if(!user) {
+			if (!user) {
 				return res.sendStatus(404);
 			}
 			req.login(user, function(err) {
-				if(err) {
+				if (err) {
 					return next(err);
 				}
-				res.sendStatus(200);
+				res.status(200).json(user.id);
 			});
 		})(req, res, next);
 	});
@@ -89,7 +89,9 @@ router.route('/signup')
 					is_admin: false
 				}).then(function(user) {
 					req.login(user, function(err) {
-						if (err) { return; }
+						if (err) {
+							return;
+						}
 					});
 					calllater(null, user);
 				}).catch(calllater);
