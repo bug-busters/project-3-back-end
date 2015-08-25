@@ -2,24 +2,26 @@
 
 var express = require('express');
 var router = express.Router();
-var model = require('../models/product');
+var model = require('../models');
 
 router.route('/')
-  .get(function(req, res) {
+  .get(function (req, res) {
     //Products index
-    models.Product.findAll({})
+    console.log(model.Product);
+    model.Product.find({})
+      .then(function (products) {
+        res.json(products);
+      },
+      function(err) {
+        console.log(err);
+      });
+  })
+  .post(function (req, res) {
+    // Create a new product (cupcake)
+    model.Product.create(req.body)
       .then(function(products) {
         res.json(products);
-      }),
-      function(reason) {
-        console.log(reason);
-      }
-  }).post(function(req, res) {
-    // Create a new product (cupcake)
-    models.Product.create(req.body)
-      .then(function(products) {
-        res.json(users);
-        console.log('Product created')
+        console.log('Product created');
       },
       function(error) {
         console.log(error);
@@ -29,8 +31,8 @@ router.route('/')
 
 router.route('/:id')
   // Show by ID request
-  .all(function(req, res, next) {
-    models.Product.findById(req.params.id)
+  .all(function (req, res, next) {
+    model.Product.findById(req.params.id)
       .then(function(product) {
         res.locals.product = product;
         next();
@@ -42,7 +44,7 @@ router.route('/:id')
   })
   .get(function(req, res) {
     // Sends the get request for the product
-    models.Product.findByID(req.params.id)
+    model.Product.findByID(req.params.id)
       .then(function(products) {
         res.json(products);
       },
