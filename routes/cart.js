@@ -7,19 +7,19 @@ var model = require('../models/cart');
 router.route('/')
   .get(function(req, res) {
     //Carts index
-    models.Cart.findAll({})
+    model.Cart.findAll({})
       .then(function(carts){
         res.json(carts);
-      }),
+      },
       function(error) {
         console.log(error);
-      }
+      });
   }).post(function(req, res) {
     // Create a new cart
-    models.Cart.create(req.body)
+    model.Cart.create(req.body)
       .then(function(carts) {
         res.json(carts);
-        console.log("New cart created.");
+        console.log('New cart created.');
       },
       function(error) {
         console.log(error);
@@ -30,7 +30,7 @@ router.route('/')
 router.route('/:id')
   // Show cart by ID
   .all(function(req, res, next) {
-    models.Cart.findById(req.params.id)
+    model.Cart.findById(req.params.id)
     .then(function(user) {
       res.locals.cart = cart;
       next();
@@ -42,7 +42,7 @@ router.route('/:id')
   })
   .get(function(req, res) {
     //Sends the get cart by USERID request
-    models.Cart.findByUserID(req.params.User.id)
+    model.Cart.findByUserID(req.params.User.id)
       .then(function(cart) {
         res.json(cart);
       },
@@ -67,4 +67,6 @@ router.route('/:id')
   })
   .all(function(error, req, res, next) {
     res.sendStatus(404);
-  })
+  });
+
+module.exports = router;
