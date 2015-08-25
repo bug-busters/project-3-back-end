@@ -2,7 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
-var model = require('../models/past-orders');
+var model = require('../models');
 
 /* GET past orders of user*/
 router.route('/:user_id')
