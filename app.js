@@ -15,6 +15,8 @@ var cors = require('cors');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var products = require('./routes/products');
+var cart = require('./routes/cart');
+var pastorders = require('./routes/past-orders');
 
 var app = express();
 
@@ -30,7 +32,13 @@ app.use(bodyParser.urlencoded({
 	extended: false
 }));
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5000",
+  credentials : true
+}));
+
+app.options('*', cors());
+
 app.use(session({
   secret: process.env.SESSION_SECRET,
   saveUninitialized: false,
@@ -57,6 +65,8 @@ app.use(passport.session());
 app.use('/', routes);
 app.use('/users', users);
 app.use('/products', products);
+app.use('/cart', cart);
+app.use('/pastorders', pastorders);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
