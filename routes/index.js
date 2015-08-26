@@ -52,8 +52,10 @@ router.route('/login')
 	    	where : { user_id: user.id }
 	    })
       .then(function (cart){
+      	console.log('cart', cart.length);
       	var result = {};
-      	if (cart.lenght > 0 ) {
+      	if (cart.length > 0 ) {
+      		console.log('>0 cart: ', cart.length);
 			    result = {
 			    	'user_id': user.id,
 			    	'hasCart': true
