@@ -78,3 +78,106 @@ db.products.insert({
   stock: 25,
   image: 'img/7.jpg'
 });
+
+
+db.pastorders.remove({});
+
+db.pastorders.insert({
+  userId: 1,
+  products: [
+      {
+        sku: 270432,
+        title: 'Code Confetti',
+        price: 2.25,
+        quantity: 3
+      },
+      {
+        sku: 181432,
+        title: 'Late Night Debugging',
+        price: 2.25,
+        quantity: 4
+      },
+      {
+        sku: 170433,
+        title: 'Red Velvet Gem',
+        price: 2.25,
+        quantity: 2
+      }
+    ],
+  status: 'delivered'
+});
+
+db.pastorders.insert({
+  userId: 1,
+  products: [
+      {
+        sku: 270432,
+        title: 'Code Confetti',
+        price: 2.25,
+        quantity: 3
+      },
+      {
+        sku: 921079,
+        title: 'Chocolate 404',
+        price: 2.25,
+        quantity: 1
+      },
+      {
+        sku: 170431,
+        title: 'Vanilla Javascript',
+        price: 2.25,
+        quantity: 1
+      }
+    ],
+  status: 'delivered'
+});
+
+db.pastorders.insert({
+  userId: 2,
+  products: [
+      {
+        sku: 270432,
+        title: 'Code Confetti',
+        price: 2.25,
+        quantity: 3
+      },
+      {
+        sku: 181432,
+        title: 'Late Night Debugging',
+        price: 2.25,
+        quantity: 4
+      },
+      {
+        sku: 170433,
+        title: 'Red Velvet Gem',
+        price: 2.25,
+        quantity: 2
+      }
+    ],
+  status: 'delivered'
+});
+
+db.pastorders.insert({
+  userId: 2,
+  products: [
+      {
+        sku: 270432,
+        title: 'Code Confetti',
+        price: 2.25,
+        quantity: 3
+      },
+      {
+        sku: 921079,
+        title: 'Chocolate 404',
+        price: 2.25,
+        quantity: 1
+      },
+      {
+        sku: 170431,
+        title: 'Vanilla Javascript',
+        price: 2.25,
+        quantity: 1
+      }
+    ],
+  status: 'delivered'
+});
