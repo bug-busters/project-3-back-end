@@ -48,27 +48,29 @@ router.route('/login')
 			});
 
 			// check is cart exists
-	    models.Cart.findAll({
-	    	where : { user_id: user.id }
-	    })
-      .then(function (cart){
-      	var result = {};
-      	if (cart.lenght > 0 ) {
-			    result = {
-			    	'user_id': user.id,
-			    	'hasCart': true
-			    }
-			  } else {
-			  	result = {
-			  		'user_id': user.id,
-			  		'hasCart': false
-			  	}
-			  }
-				res.status(200).json(result);
-      },
-      function (error) {
-        console.log(error);
-      });
+			models.Cart.findAll({
+					where: {
+						user_id: user.id
+					}
+				})
+				.then(function(cart) {
+						var result = {};
+						if (cart.length > 0) {
+							result = {
+								'user_id': user.id,
+								'hasCart': true
+							};
+						} else {
+							result = {
+								'user_id': user.id,
+								'hasCart': false
+							};
+						}
+						res.status(200).json(result);
+					},
+					function(error) {
+						console.log(error);
+					});
 		})(req, res, next);
 	});
 
@@ -132,16 +134,16 @@ router.route('/changePassword')
 		res.sendStatus(405);
 	})
 	.put(function(req, res, next) {
-
+		var err;
 		// check that user is logged
 		if (!req.user) {
-			var err = new Error('User not logged in.');
+			err = new Error('User not logged in.');
 			return next(err);
 		}
 
 		// check that body contains a passport value
 		if (!req.body || !req.body.password) {
-			var err = new Error('No credentials.');
+			err = new Error('No credentials.');
 			return next(err);
 		}
 		async.waterfall([
