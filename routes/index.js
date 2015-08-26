@@ -48,29 +48,31 @@ router.route('/login')
 			});
 
 			// check is cart exists
-	    models.Cart.findAll({
-	    	where : { user_id: user.id }
-	    })
-      .then(function (cart){
-      	console.log('cart', cart.length);
-      	var result = {};
-      	if (cart.length > 0 ) {
-      		console.log('>0 cart: ', cart.length);
-			    result = {
-			    	'user_id': user.id,
-			    	'hasCart': true
-			    }
-			  } else {
-			  	result = {
-			  		'user_id': user.id,
-			  		'hasCart': false
-			  	}
-			  }
-				res.status(200).json(result);
-      },
-      function (error) {
-        console.log(error);
-      });
+			models.Cart.findAll({
+					where: {
+						user_id: user.id
+					}
+				})
+				.then(function(cart) {
+						console.log('cart', cart.length);
+						var result = {};
+						if (cart.length > 0) {
+							console.log('>0 cart: ', cart.length);
+							result = {
+								'user_id': user.id,
+								'hasCart': true
+							};
+						} else {
+							result = {
+								'user_id': user.id,
+								'hasCart': false
+							};
+						}
+						res.status(200).json(result);
+					},
+					function(error) {
+						console.log(error);
+					});
 		})(req, res, next);
 	});
 
@@ -89,7 +91,7 @@ router.route('/signup')
 		res.sendStatus(405);
 	})
 	.post(function(req, res, next) {
-		console.log('inside /singup');
+		console.log('inside POST /signup');
 
 		if (!req.body || !req.body.email || !req.body.password) {
 			console.log(req.body);
