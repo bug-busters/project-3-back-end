@@ -10,12 +10,11 @@ var models = require('../models/');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.render('index', {
-		title: 'Express'
+		title: 'Syntactic Sugar'
 	});
 });
 
 /* AUTHENTICATION ROUTES */
-
 router.use(function(req, res, next) {
 	if (req.session && !req.session.currRequestRoute) {
 		req.session.currRequestRoute = req.path;
@@ -54,10 +53,10 @@ router.route('/login')
 					}
 				})
 				.then(function(cart) {
-						console.log('cart', cart.length);
+						console.log('cart length: ' + cart.length);
 						var result = {};
 						if (cart.length > 0) {
-							console.log('>0 cart: ', cart.length);
+							console.log('>0 cart: ' + cart.length);
 							result = {
 								'user_id': user.id,
 								'hasCart': true
@@ -127,7 +126,8 @@ router.route('/signup')
 			if (err) {
 				return next(err);
 			}
-			res.sendStatus(201);
+
+			res.status(201).json({'user_id': result.id});
 		});
 	});
 
