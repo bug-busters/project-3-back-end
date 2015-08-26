@@ -5,6 +5,7 @@ var router = express.Router();
 var models = require('../models');
 
 router.route('/:user_id')
+<<<<<<< HEAD
   .get(function (req, res) {
     //Carts index
     models.Cart.find({ 'user_id': req.params.id })
@@ -36,6 +37,49 @@ router.route('/:user_id')
         console.log('Failed to initialize the cart.');
     });
   });
+=======
+	.get(function(req, res) {
+		//Carts index
+		models.Cart.find({
+				'user_id': req.params.id
+			})
+			.then(function(cart) {
+					res.json(cart);
+				},
+				function(error) {
+					console.log(error);
+				});
+	}).post(function(req, res) {
+		// Create a new cart
+		models.Cart.create(req.body)
+			.then(function(cart) {
+					res.json(cart);
+					console.log('New cart created.');
+				},
+				function(error) {
+					console.log(error);
+					console.log('Failed to initialize the cart.');
+				});
+	}).patch(function(req, res) {
+		console.log('patch route hit');
+		console.log(req.params.user_id);
+		models.Cart.findOne({
+				where: {
+					'user_id': req.params.user_id
+				}
+			})
+			.then(function(cart) {
+					console.log('cart is ' + cart);
+					console.log(req.body);
+					cart.update(req.body);
+					res.sendStatus(200);
+				},
+				function(error) {
+					console.log(error);
+					console.log('Failed to initialize the cart.');
+				});
+	});
+>>>>>>> 9b1242c76e4eb175511abc8c6869292d756f6b5d
 
 // router.route('/:id')
 //   // Show cart by ID
