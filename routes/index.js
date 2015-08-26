@@ -33,6 +33,7 @@ router.route('/login')
 		res.sendStatus(405);
 	})
 	.post(function(req, res, next) {
+		//authentication method
 		passport.authenticate('local', function(err, user, info) {
 			if (err) {
 				return next(err);
@@ -44,8 +45,30 @@ router.route('/login')
 				if (err) {
 					return next(err);
 				}
-				res.status(200).json(user.id);
 			});
+
+			// check is cart exists
+	    models.Cart.findAll({
+	    	where : { user_id: user.id }
+	    })
+      .then(function (cart){
+      	var result = {};
+      	if (cart.lenght > 0 ) {
+			    result = {
+			    	'user_id': user.id,
+			    	'hasCart': true
+			    }
+			  } else {
+			  	result = {
+			  		'user_id': user.id,
+			  		'hasCart': false
+			  	}
+			  }
+				res.status(200).json(result);
+      },
+      function (error) {
+        console.log(error);
+      });
 		})(req, res, next);
 	});
 
