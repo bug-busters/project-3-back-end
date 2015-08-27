@@ -28,7 +28,9 @@ module.exports = function(sequelize, DataTypes) {
 			},
 
 			getTotal: function() {
-				return this.getSubtotals().reduce();
+				return (this.getSubtotals().reduce(function(a, b) {
+					return a + b;
+				}, 0)).toFixed(2);
 			}
 		}
 	});
