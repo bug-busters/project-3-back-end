@@ -8,7 +8,7 @@ module.exports = function(mongoose) {
     userId: {
       type: Number,
       required: true,
-      validate: {
+      validates: {
         isInt: true
       }
     },
@@ -18,7 +18,7 @@ module.exports = function(mongoose) {
           type: Number,
           required: true,
           unique: true,
-          validate: {
+          validates: {
             isInt: true
           }
         },
@@ -30,7 +30,7 @@ module.exports = function(mongoose) {
         price: {
           type: Number,
           required: true,
-          validate: {
+          validates: {
             isDecimal: true
           }
         },
@@ -38,7 +38,7 @@ module.exports = function(mongoose) {
           type: Number,
           required: true,
           unique: true,
-          validate: {
+          validates: {
             isInt: true
           }
         }
