@@ -5,39 +5,6 @@ var router = express.Router();
 var models = require('../models/index');
 
 router.route('/:user_id')
-<<<<<<< HEAD
-  .get(function (req, res) {
-    //Carts index
-    models.Cart.find({ 'user_id': req.params.id })
-      .then(function (cart){
-        res.json(cart.products);
-      },
-      function (error) {
-        console.log(error);
-      });
-  }).post(function (req, res) {
-    // Create a new cart
-    models.Cart.create(req.body)
-      .then(function (cart) {
-        res.json(cart);
-        console.log('New cart created.');
-      },
-      function (error) {
-        console.log(error);
-        console.log('Failed to initialize the cart.');
-      });
-  }).patch(function (req, res) {
-    models.Cart.find({ 'user_id': req.params.id })
-    .then(function (cart) {
-      cart.update(req.body);
-      res.sendStatus(200);
-    },
-      function (error) {
-        console.log(error);
-        console.log('Failed to initialize the cart.');
-    });
-  });
-=======
 	.get(function(req, res) {
 		//Carts index
 		models.Cart.find({
@@ -79,7 +46,19 @@ router.route('/:user_id')
 					console.log('PATCH /cart/:user_id Failed to initialize the cart.');
 				});
 	});
->>>>>>> 9b1242c76e4eb175511abc8c6869292d756f6b5d
+
+	// router.route('/stripe/')
+	// .post(function(req, res) {
+	// 	// (Assuming you're using express - expressjs.com)
+	// 	// Get the credit card details submitted by the form
+	// 	var stripeToken = request.body.stripeToken;
+	// 	.then(function() {
+	// 		res.json(stripeToken);
+	// 	},
+	// 	function(error) {
+	// 		console.log(error);
+	// 	});
+	// });
 
 // router.route('/:id')
 //   // Show cart by ID
