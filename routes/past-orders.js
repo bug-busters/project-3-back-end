@@ -7,11 +7,19 @@ var models = require('../models/index');
 /* GET past orders of user*/
 router.route('/:user_id')
   .get(function (req, res) {
-    //Carts index
+    var outGoingHistory = {
+      date: {
+        products: {},
+        totals: {
+          subtotals: {},
+          grandTotal: 0
+        }
+      }
+    };
+
     models.PastOrder.find({
         'userId': req.params.user_id
       }).then(function(pastorder) {
-          // var pastordersJSON = JSON.parse(pastorder.products);
           res.json(pastorder);
         },
         function(error) {
