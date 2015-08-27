@@ -1,8 +1,10 @@
+'use strict';
+
 var express = require('express');
 var router = express.Router();
 var models = require('../models/index');
 
-router.route('/:user_id') << << << < e2b6e49876e4c40ef219cb5c4c417d13145dd4eb
+router.route('/:user_id')
 	// #TODO:0 This route is really ugly and needs to be refactored.
 	.get(function(req, res) {
 		var outgoingCart = {
@@ -95,53 +97,50 @@ router.route('/:user_id') << << << < e2b6e49876e4c40ef219cb5c4c417d13145dd4eb
 					console.log(error);
 					console.log('PATCH /cart/:user_id Failed to initialize the cart.');
 				});
-	}); === === =
-.get(function(req, res) {
-	//Carts index
-	models.Cart.find({
-			'user_id': req.params.user_id
-		})
-		.then(function(cart) {
-				res.json(cart);
-			},
-			function(error) {
-				console.log(error);
-			});
-}).post(function(req, res) {
-	// Create a new cart
-	console.log('post /cart/user_id');
-	console.log(req.body);
-	models.Cart.create({
-			'user_id': req.params.user_id,
-			'products': req.body.products
-		})
-		.then(function(cart) {
-				res.json(cart);
-				console.log('New cart created.');
-			},
-			function(error) {
-				console.log(error);
-				console.log('POST /cart/:user_id Failed to initialize the cart.');
-			});
-}).patch(function(req, res) {
-	console.log('patch /cart/user_id');
-	models.Cart.findOne({
-			where: {
-				'user_id': req.params.user_id
-			}
-		})
-		.then(function(cart) {
-				console.log(req.body);
-				cart.update({
-					'products': req.body.products
+	}).post(function(req, res) {
+		// Create a new cart
+		console.log('post /cart/user_id');
+		console.log(req.body);
+		models.Cart.create({
+				'user_id': req.params.user_id,
+				'products': req.body.products
+			})
+			.then(function(cart) {
+					res.json(cart);
+					console.log('New cart created.');
+				},
+				function(error) {
+					console.log(error);
+					console.log('POST /cart/:user_id Failed to initialize the cart.');
 				});
-				res.sendStatus(200);
-			},
-			function(error) {
-				console.log(error);
-				console.log('PATCH /cart/:user_id Failed to initialize the cart.');
-			});
-});
+	}).patch(function(req, res) {
+		console.log('patch /cart/user_id');
+		models.Cart.findOne({
+				where: {
+					'user_id': req.params.user_id
+				}
+			})
+			.then(function(cart) {
+					console.log(req.body);
+					cart.update({
+						'products': req.body.products
+					});
+					res.sendStatus(200);
+				},
+				function(error) {
+					console.log(error);
+					console.log('PATCH /cart/:user_id Failed to initialize the cart.');
+				});
+	});
+
+router.route('/checkout')
+	.post(function(req, res) {
+		console.log('POST checkout hit');
+		console.log('BODY');
+		console.log(req.body);
+		console.log('PARAMS');
+		console.log(req.params);
+	});
 
 // router.route('/stripe/')
 // .post(function(req, res) {
@@ -155,7 +154,6 @@ router.route('/:user_id') << << << < e2b6e49876e4c40ef219cb5c4c417d13145dd4eb
 // 		console.log(error);
 // 	});
 // });
->>> >>> > Worked on the routes to update and authenticate the stripe.
 
 // router.route('/:id')
 //   // Show cart by ID
