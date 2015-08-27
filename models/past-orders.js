@@ -12,6 +12,10 @@ module.exports = function(mongoose) {
         isInt: true
       }
     },
+    orderDate: {
+      type: Date,
+      default: Date.now
+    },
     products: [
       {
         sku: {
@@ -48,12 +52,8 @@ module.exports = function(mongoose) {
       type: String,
       required: true
     }
-
-  }, {
-    timestamps: true
   });
 
-  pastOrderSchema.plugin(timestamps);
 
   pastOrderSchema.virtual('total').get(function() {
     var total = 0.00;
