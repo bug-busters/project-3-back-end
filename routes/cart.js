@@ -8,7 +8,7 @@ router.route('/:user_id')
 	.get(function(req, res) {
 		//Carts index
 		models.Cart.find({
-				'user_id': req.params.id
+				'user_id': req.params.user_id
 			})
 			.then(function(cart) {
 					res.json(cart);
@@ -18,32 +18,32 @@ router.route('/:user_id')
 				});
 	}).post(function(req, res) {
 		// Create a new cart
-		models.Cart.create(req.body)
+		console.log('post /cart/user_id');
+		console.log(req.body);
+		models.Cart.create({'user_id': req.params.user_id, 'products': req.body.products })
 			.then(function(cart) {
 					res.json(cart);
 					console.log('New cart created.');
 				},
 				function(error) {
 					console.log(error);
-					console.log('Failed to initialize the cart.');
+					console.log('POST /cart/:user_id Failed to initialize the cart.');
 				});
 	}).patch(function(req, res) {
-		console.log('patch route hit');
-		console.log(req.params.user_id);
+		console.log('patch /cart/user_id');
 		models.Cart.findOne({
 				where: {
 					'user_id': req.params.user_id
 				}
 			})
 			.then(function(cart) {
-					console.log('cart is ' + cart);
 					console.log(req.body);
-					cart.update(req.body);
+					cart.update({'products': req.body.products});
 					res.sendStatus(200);
 				},
 				function(error) {
 					console.log(error);
-					console.log('Failed to initialize the cart.');
+					console.log('PATCH /cart/:user_id Failed to initialize the cart.');
 				});
 	});
 
