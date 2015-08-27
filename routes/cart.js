@@ -5,22 +5,72 @@ var router = express.Router();
 var models = require('../models/index');
 
 router.route('/:user_id')
+	// #TODO:0 This route is really ugly and needs to be refactored.
 	.get(function(req, res) {
+		var outgoingCart = {
+			products: {},
+			totals: {
+				subtotals: {},
+				grandTotal: 0
+			}
+		};
 		//Carts index
-		models.Cart.find({
-				'user_id': req.params.user_id
+		models.Cart.findOne({
+				where: {
+					'user_id': req.params.user_id
+				},
+				attributes: ['products']
 			})
 			.then(function(cart) {
-					res.json(cart);
+					var productsJSON = JSON.parse(cart.products);
+					var skus = [];
+
+					for (var sku in productsJSON) {
+						if (productsJSON.hasOwnProperty(sku)) {
+							skus.push(sku);
+
+							outgoingCart.products[sku] = {};
+							outgoingCart.products[sku].quantity = productsJSON[sku];
+						}
+					}
+
+					models.Product.find({
+							'sku': {
+								$in: skus
+							}
+						}, 'sku title price', function(error, products) {
+							// Populate title and price fields for each SKU key.
+							products.forEach(function(product) {
+								outgoingCart.products[product.sku].title = product.title;
+								outgoingCart.products[product.sku].price = product.price;
+							});
+						})
+						.then(function() {
+							// Populate subtotals and grandTotal in totals key.
+							for (var product in outgoingCart.products) {
+								if (outgoingCart.products.hasOwnProperty(product)) {
+									outgoingCart.totals.subtotals[product] = outgoingCart.products[product].quantity * outgoingCart.products[product].price;
+									outgoingCart.totals.grandTotal += outgoingCart.totals.subtotals[product];
+								}
+							}
+						})
+						.then(function() {
+							res.status(200).json(outgoingCart);
+						}, function(error) {
+							console.error(error);
+						});
 				},
 				function(error) {
-					console.log(error);
+					console.error(error);
 				});
 	}).post(function(req, res) {
 		// Create a new cart
 		console.log('post /cart/user_id');
 		console.log(req.body);
-		models.Cart.create({'user_id': req.params.user_id, 'products': req.body.products })
+		models.Cart.create({
+				'user_id': req.params.user_id,
+				'products': req.body.products
+			})
 			.then(function(cart) {
 					res.json(cart);
 					console.log('New cart created.');
@@ -38,7 +88,9 @@ router.route('/:user_id')
 			})
 			.then(function(cart) {
 					console.log(req.body);
-					cart.update({'products': req.body.products});
+					cart.update({
+						'products': req.body.products
+					});
 					res.sendStatus(200);
 				},
 				function(error) {

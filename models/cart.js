@@ -15,6 +15,7 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		products: {
 			type: DataTypes.JSON,
+<<<<<<< HEAD
 		},
 		secret_key: process.env.STRIPE_TEST_SECRET_KET
 	}, {
@@ -33,6 +34,8 @@ module.exports = function(sequelize, DataTypes) {
 					return a + b;
 				}, 0)).toFixed(2);
 			}
+=======
+>>>>>>> beacfdc2745cfb072310ab7aeb3451d2351780a3
 		}
 	});
 
