@@ -5,7 +5,7 @@ module.exports = function(mongoose) {
 
   var pastOrderSchema = new Schema(
     {
-    userId: {
+    user_id: {
       type: Number,
       required: true,
       validates: {
