@@ -5,8 +5,15 @@ var router = express.Router();
 var models = require('../models/index');
 
 router.route('/:user_id')
+	// #TODO:0 This route is really ugly and needs to be refactored.
 	.get(function(req, res) {
-		var outgoingCart = {};
+		var outgoingCart = {
+			products: {},
+			totals: {
+				subtotals: {},
+				grandTotal: 0
+			}
+		};
 		//Carts index
 		models.Cart.findOne({
 				where: {
@@ -22,26 +29,36 @@ router.route('/:user_id')
 						if (productsJSON.hasOwnProperty(sku)) {
 							skus.push(sku);
 
-							outgoingCart[sku] = {};
-							outgoingCart[sku].quantity = productsJSON[sku];
+							outgoingCart.products[sku] = {};
+							outgoingCart.products[sku].quantity = productsJSON[sku];
 						}
 					}
 
 					models.Product.find({
-						'sku': {
-							$in: skus
-						}
-					}, 'sku title price', function(error, products) {
-						products.forEach(function(product) {
-							outgoingCart[product.sku].title = product.title;
-							outgoingCart[product.sku].price = product.price;
-						});
-					}).then(function() {
+							'sku': {
+								$in: skus
+							}
+						}, 'sku title price', function(error, products) {
+							// Populate title and price fields for each SKU key.
+							products.forEach(function(product) {
+								outgoingCart.products[product.sku].title = product.title;
+								outgoingCart.products[product.sku].price = product.price;
+							});
+						})
+						.then(function() {
+							// Populate subtotals and grandTotal in totals key.
+							for (var product in outgoingCart.products) {
+								if (outgoingCart.products.hasOwnProperty(product)) {
+									outgoingCart.totals.subtotals[product] = outgoingCart.products[product].quantity * outgoingCart.products[product].price;
+									outgoingCart.totals.grandTotal += outgoingCart.totals.subtotals[product];
+								}
+							}
+						})
+						.then(function() {
 							res.status(200).json(outgoingCart);
 						}, function(error) {
 							console.error(error);
-						}
-					);
+						});
 				},
 				function(error) {
 					console.error(error);
