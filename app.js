@@ -11,6 +11,7 @@ var uuid = require('uuid');
 require('dotenv').load();
 var mongoose = require('mongoose');
 var cors = require('cors');
+var timestamps = require('mongoose-times');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
