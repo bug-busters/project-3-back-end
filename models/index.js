@@ -28,6 +28,7 @@ models.Product = require('./product')(mongoose, models);
 models.Cart = sequelize.import('./cart');
 models.User = sequelize.import('./user');
 models.Address = sequelize.import('./address');
+models.PastOrder = require('./past-orders')(mongoose, models);
 
 Object.keys(models).forEach(function(modelName) {
 	if ('associate' in models[modelName]) {
