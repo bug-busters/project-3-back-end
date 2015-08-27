@@ -53,6 +53,8 @@ module.exports = function(mongoose) {
     timestamps: true
   });
 
+  pastOrderSchema.plugin(timestamps);
+
   pastOrderSchema.virtual('total').get(function() {
     var total = 0.00;
 
