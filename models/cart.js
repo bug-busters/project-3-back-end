@@ -16,23 +16,6 @@ module.exports = function(sequelize, DataTypes) {
 		products: {
 			type: DataTypes.JSON,
 		}
-	}, {
-		classMethods: {
-			getSubtotals: function() {
-				var subtotals = [];
-				this.products.forEach(function(product) {
-					subtotals.push(product.price * product.quantity);
-				});
-
-				return subtotals;
-			},
-
-			getTotal: function() {
-				return (this.getSubtotals().reduce(function(a, b) {
-					return a + b;
-				}, 0)).toFixed(2);
-			}
-		}
 	});
 
 	return Cart;

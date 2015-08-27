@@ -11,6 +11,7 @@ router.route('/:user_id')
     models.PastOrder.find({
         'userId': req.params.user_id
       }).then(function(pastorder) {
+          // var pastordersJSON = JSON.parse(pastorder.products);
           res.json(pastorder);
         },
         function(error) {
