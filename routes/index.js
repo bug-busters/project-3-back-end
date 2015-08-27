@@ -5,7 +5,7 @@ var async = require('async');
 var router = express.Router();
 var passport = require('passport');
 var bcrypt = require('bcrypt');
-var models = require('../models/');
+var models = require('../models/index');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

@@ -2,7 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
-var models = require('../models');
+var models = require('../models/index');
 
 router.route('/:user_id')
 	.get(function(req, res) {
