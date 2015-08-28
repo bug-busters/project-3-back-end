@@ -108,7 +108,8 @@ db.pastorders.insert({
       }
     ],
   status: 'delivered',
-  grandTotal: 20.25
+  grandTotal: 20.25,
+  orderDate: ISODate("2015-08-28T01:25:51.498Z")
 });
 
 db.pastorders.insert({
@@ -137,7 +138,8 @@ db.pastorders.insert({
       }
     ],
   status: 'delivered',
-  grandTotal: 11.25
+  grandTotal: 11.25,
+  orderDate: ISODate("2015-08-28T01:25:51.498Z")
 });
 
 db.pastorders.insert({
@@ -166,7 +168,8 @@ db.pastorders.insert({
       }
     ],
   status: 'delivered',
-  grandTotal: 20.25
+  grandTotal: 20.25,
+  orderDate: ISODate("2015-08-28T01:25:51.498Z")
 });
 
 db.pastorders.insert({
@@ -195,5 +198,6 @@ db.pastorders.insert({
       }
     ],
   status: 'delivered',
-  grandTotal: 11.25
+  grandTotal: 11.25,
+  orderDate: ISODate("2015-08-28T01:25:51.498Z")
 });
