@@ -103,25 +103,6 @@ app.use(function(err, req, res, next) {
 	});
 });
 
-app.post('/charge', function(req, res) {
-	var stripeToken = req.body.stripeToken;
-	var amount = req.body.amt;
-
-	stripe.charges.create({
-			card: stripeToken,
-			currency: 'usd',
-			amount: amount
-		},
-		function(err, charge) {
-			if (err) {
-				res.send(500, err);
-			} else {
-				console.log('charge successful');
-				res.send(204);
-			}
-		});
-});
-
 app.use(express.static(__dirname));
 
 module.exports = app;
