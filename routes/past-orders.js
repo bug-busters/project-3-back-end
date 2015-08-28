@@ -7,21 +7,7 @@ var models = require('../models/index');
 /* GET past orders of user*/
 router.route('/:user_id')
   .get(function (req, res) {
-
-
-
-
-      var outGoingHistory = [];
-
-        // oderDate: ,
-        // grandTotal: ,
-        // products: [{
-        //   title: ,
-        //   quantity: ,
-        //   price: ,
-        //   subtotal: ,
-        // }],
-        // status: ,
+    var outGoingHistory = [];
     models.PastOrder.find({
       'user_id': req.params.user_id
     })
@@ -31,10 +17,12 @@ router.route('/:user_id')
         var pastOrder = {
           products: {},
         };
+        var dateArray = pastorder[i].orderDate.toString().split(' ');
+        var dateString = dateArray[0] + " " + dateArray[1] + " " + dateArray[2] + ", " + dateArray[3];
         pastOrder['status'] = pastorder[i].status;
         pastOrder['products'] = pastorder[i].products;
         pastOrder['grandTotal'] = pastorder[i].grandTotal;
-        pastOrder['orderDate'] = pastorder[i].orderDate;
+        pastOrder['orderDate'] = dateString;
         outGoingHistory.push(pastOrder);
       }
 
