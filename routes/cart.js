@@ -148,24 +148,6 @@ router.route('/:user_id')
 				});
 	});
 
-router.route('/checkout')
-	.post(function(req, res) {
-		console.log('POST checkout hit');
-		console.log('BODY');
-		console.log(req.body);
-		console.log('PARAMS');
-		console.log(req.params);
-	});
-
-router.route('/checkout')
-	.post(function(req, res) {
-		console.log('POST checkout hit');
-		console.log('BODY');
-		console.log(req.body);
-		console.log('PARAMS');
-		console.log(req.params);
-	});
-
 // router.route('/stripe/')
 // .post(function(req, res) {
 // 	// (Assuming you're using express - expressjs.com)
