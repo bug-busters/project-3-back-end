@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		products: {
 			type: DataTypes.JSON,
-		}
+		},
 	});
 
 	return Cart;
