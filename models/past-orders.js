@@ -62,7 +62,7 @@ module.exports = function(mongoose) {
       type: Number,
       required: true,
       validates: {
-        isInt: true
+        isDecimal: true
       }
     }
   });
