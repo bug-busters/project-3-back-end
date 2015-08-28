@@ -110,7 +110,8 @@ router.route('/:user_id')
 					console.log(error);
 					console.log('PATCH /cart/:user_id Failed to initialize the cart.');
 				});
-	}).post(function(req, res) {
+	})
+	.post(function(req, res) {
 		// Create a new cart
 		console.log('post /cart/user_id');
 		console.log(req.body);
@@ -119,14 +120,15 @@ router.route('/:user_id')
 				'products': req.body.products
 			})
 			.then(function(cart) {
-					res.json(cart);
+					res.status(201).json(cart);
 					console.log('New cart created.');
 				},
 				function(error) {
 					console.log(error);
 					console.log('POST /cart/:user_id Failed to initialize the cart.');
 				});
-	}).patch(function(req, res) {
+	})
+	.patch(function(req, res) {
 		console.log('patch /cart/user_id');
 		models.Cart.findOne({
 				where: {
