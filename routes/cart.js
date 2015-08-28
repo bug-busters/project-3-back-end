@@ -74,7 +74,8 @@ router.route('/:user_id')
 					console.error(error);
 					res.sendStatus(500);
 				});
-	}).post(function(req, res) {
+	})
+	.post(function(req, res) {
 		// Create a new cart
 		console.log('post /cart/user_id');
 		console.log(req.body);
@@ -90,7 +91,8 @@ router.route('/:user_id')
 					console.log(error);
 					console.log('POST /cart/:user_id Failed to initialize the cart.');
 				});
-	}).patch(function(req, res) {
+	})
+	.patch(function(req, res) {
 		console.log('patch /cart/user_id');
 		models.Cart.findOne({
 				where: {
@@ -108,6 +110,15 @@ router.route('/:user_id')
 					console.log(error);
 					console.log('PATCH /cart/:user_id Failed to initialize the cart.');
 				});
+	});
+
+router.route('/checkout')
+	.post(function(req, res) {
+		console.log('POST checkout hit');
+		console.log('BODY');
+		console.log(req.body);
+		console.log('PARAMS');
+		console.log(req.params);
 	});
 
 // router.route('/stripe/')
