@@ -11,6 +11,7 @@ var uuid = require('uuid');
 require('dotenv').load();
 var mongoose = require('mongoose');
 var cors = require('cors');
+var stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KET);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -33,29 +34,28 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(cors({
-  origin: "http://localhost:5000",
-  credentials : true
+	origin: 'http://localhost:5000',
+	credentials: true
 }));
 
 app.options('*', cors());
 
 app.use(session({
-  secret: process.env.SESSION_SECRET,
-  saveUninitialized: false,
-  store: new MongoStore ({
+	secret: process.env.SESSION_SECRET,
+	saveUninitialized: false,
+	store: new MongoStore({
 		mongooseConnection: mongoose.connection
-  }),
-  resave: false,
-  genid: function(req) {
-    return uuid.v4({
-      rng: uuid.nodeRNG
-    });
-  },
-  cookie: {
-    maxAge: 300000 // 5 minutes
-  }
+	}),
+	resave: false,
+	genid: function(req) {
+		return uuid.v4({
+			rng: uuid.nodeRNG
+		});
+	},
+	cookie: {
+		maxAge: 300000 // 5 minutes
+	}
 }));
-
 
 // initialize passport
 var passport = require('./lib/passport');
@@ -67,7 +67,6 @@ app.use('/users', users);
 app.use('/products', products);
 app.use('/cart', cart);
 app.use('/pastorders', pastorders);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -101,5 +100,26 @@ app.use(function(err, req, res, next) {
 		error: {}
 	});
 });
+
+app.post('/charge', function(req, res) {
+	var stripeToken = req.body.stripeToken;
+	var amount = req.body.amt;
+
+	stripe.charges.create({
+			card: stripeToken,
+			currency: 'usd',
+			amount: amount
+		},
+		function(err, charge) {
+			if (err) {
+				res.send(500, err);
+			} else {
+				console.log('charge successful');
+				res.send(204);
+			}
+		});
+});
+
+app.use(express.static(__dirname));
 
 module.exports = app;
