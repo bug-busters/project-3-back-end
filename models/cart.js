@@ -16,7 +16,6 @@ module.exports = function(sequelize, DataTypes) {
 		products: {
 			type: DataTypes.JSON,
 		},
-		secret_key: process.env.STRIPE_TEST_SECRET_KEY
 	});
 
 	return Cart;
