@@ -83,101 +83,117 @@ db.products.insert({
 db.pastorders.remove({});
 
 db.pastorders.insert({
-  userId: 1,
+  user_id: 1,
   products: [
       {
         sku: 270432,
         title: 'Code Confetti',
         price: 2.25,
-        quantity: 3
+        quantity: 3,
+        subtotal: 6.75
       },
       {
         sku: 181432,
         title: 'Late Night Debugging',
         price: 2.25,
-        quantity: 4
+        quantity: 4,
+        subtotal: 9.00
       },
       {
         sku: 170433,
         title: 'Red Velvet Gem',
         price: 2.25,
-        quantity: 2
+        quantity: 2,
+        subtotal: 4.50
       }
     ],
-  status: 'delivered'
+  status: 'delivered',
+  grandTotal: 20.25
 });
 
 db.pastorders.insert({
-  userId: 1,
+  user_id: 1,
   products: [
       {
         sku: 270432,
         title: 'Code Confetti',
         price: 2.25,
-        quantity: 3
+        quantity: 3,
+        subtotal: 6.75
       },
       {
         sku: 921079,
         title: 'Chocolate 404',
         price: 2.25,
-        quantity: 1
+        quantity: 1,
+        subtotal: 2.25
       },
       {
         sku: 170431,
         title: 'Vanilla Javascript',
         price: 2.25,
-        quantity: 1
+        quantity: 1,
+        subtotal: 2.25
       }
     ],
-  status: 'delivered'
+  status: 'delivered',
+  grandTotal: 11.25
 });
 
 db.pastorders.insert({
-  userId: 2,
+  user_id: 2,
   products: [
       {
         sku: 270432,
         title: 'Code Confetti',
         price: 2.25,
-        quantity: 3
+        quantity: 3,
+        subtotal: 6.75
       },
       {
         sku: 181432,
         title: 'Late Night Debugging',
         price: 2.25,
-        quantity: 4
+        quantity: 4,
+        subtotal: 9.00
       },
       {
         sku: 170433,
         title: 'Red Velvet Gem',
         price: 2.25,
-        quantity: 2
+        quantity: 2,
+        subtotal: 4.50
       }
     ],
-  status: 'delivered'
+  status: 'delivered',
+  grandTotal: 20.25
 });
 
 db.pastorders.insert({
-  userId: 2,
+  user_id: 2,
   products: [
       {
         sku: 270432,
         title: 'Code Confetti',
         price: 2.25,
-        quantity: 3
+        quantity: 3,
+        subtotal: 6.75
       },
       {
         sku: 921079,
         title: 'Chocolate 404',
         price: 2.25,
-        quantity: 1
+        quantity: 1,
+        subtotal: 2.25
       },
       {
         sku: 170431,
         title: 'Vanilla Javascript',
         price: 2.25,
-        quantity: 1
+        quantity: 1,
+        subtotal: 2.25
       }
     ],
-  status: 'delivered'
+  status: 'delivered',
+  grandTotal: 11.25
 });
