@@ -7,6 +7,7 @@ var models = require('../models/index');
 router.route('/:user_id')
 	// #TODO:0 This route is really ugly and needs to be refactored.
 	.get(function(req, res) {
+		// Create default outgoing cart object.
 		var outgoingCart = {
 			products: {},
 			totals: {
@@ -14,7 +15,7 @@ router.route('/:user_id')
 				grandTotal: 0
 			}
 		};
-		//Carts index
+		// Find cart by user_id and retrieve the products field.
 		models.Cart.findOne({
 				where: {
 					'user_id': req.params.user_id
@@ -25,6 +26,9 @@ router.route('/:user_id')
 					var productsJSON = JSON.parse(cart.products);
 					var skus = [];
 
+					// Create an array of SKUs for the mongoDB query later.
+					// Push each product SKU into the outgoingCart products
+					// object as a key and set its value to the quantity.
 					for (var sku in productsJSON) {
 						if (productsJSON.hasOwnProperty(sku)) {
 							skus.push(sku);
@@ -34,6 +38,8 @@ router.route('/:user_id')
 						}
 					}
 
+					// Find the products in mongoDB matching the SKUs in the sku
+					// array that was created earlier.
 					models.Product.find({
 							'sku': {
 								$in: skus
@@ -55,13 +61,18 @@ router.route('/:user_id')
 							}
 						})
 						.then(function() {
+							// Send the cart information to the front end.
 							res.status(200).json(outgoingCart);
 						}, function(error) {
+							console.error('GET /cart/:user_id mongoDB query error');
 							console.error(error);
+							res.sendStatus(500);
 						});
 				},
 				function(error) {
+					console.error('GET /cart/:user_id error');
 					console.error(error);
+					res.sendStatus(500);
 				});
 	}).post(function(req, res) {
 		// Create a new cart
@@ -72,7 +83,7 @@ router.route('/:user_id')
 				'products': req.body.products
 			})
 			.then(function(cart) {
-					res.json(cart);
+					res.status(201).json(cart);
 					console.log('New cart created.');
 				},
 				function(error) {
@@ -99,18 +110,18 @@ router.route('/:user_id')
 				});
 	});
 
-	// router.route('/stripe/')
-	// .post(function(req, res) {
-	// 	// (Assuming you're using express - expressjs.com)
-	// 	// Get the credit card details submitted by the form
-	// 	var stripeToken = request.body.stripeToken;
-	// 	.then(function() {
-	// 		res.json(stripeToken);
-	// 	},
-	// 	function(error) {
-	// 		console.log(error);
-	// 	});
-	// });
+// router.route('/stripe/')
+// .post(function(req, res) {
+// 	// (Assuming you're using express - expressjs.com)
+// 	// Get the credit card details submitted by the form
+// 	var stripeToken = request.body.stripeToken;
+// 	.then(function() {
+// 		res.json(stripeToken);
+// 	},
+// 	function(error) {
+// 		console.log(error);
+// 	});
+// });
 
 // router.route('/:id')
 //   // Show cart by ID
