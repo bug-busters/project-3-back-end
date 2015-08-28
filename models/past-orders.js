@@ -41,9 +41,15 @@ module.exports = function(mongoose) {
         quantity: {
           type: Number,
           required: true,
-          unique: true,
           validates: {
             isInt: true
+          }
+        },
+        subtotal : {
+          type: Number,
+          required: true,
+          validates: {
+            isDecimal: true
           }
         }
       }
@@ -51,6 +57,13 @@ module.exports = function(mongoose) {
     status: {
       type: String,
       required: true
+    },
+    grandTotal : {
+      type: Number,
+      required: true,
+      validates: {
+        isInt: true
+      }
     }
   });
 
