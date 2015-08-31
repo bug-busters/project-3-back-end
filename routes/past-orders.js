@@ -31,21 +31,21 @@ router.route('/:user_id')
 				res.sendStatus(500);
 			});
 	})
-.post(function(req, res) {
-	// Create past order
-	console.log('post /pastorders/user_id');
-	console.log(req.body);
+	.post(function(req, res) {
+		// Create past order
+		console.log('post /pastorders/user_id');
+		console.log(req.body);
 
-	models.PastOrder.create(req.body)
-		.then(function(pastorder) {
-				res.json(pastorder);
-				console.log('New past order created.');
-			},
-			function(error) {
-				console.log(error);
-				console.log('Failed to create a new past order.');
-			});
+		models.PastOrder.create(req.body)
+			.then(function(pastorder) {
+					res.json(pastorder);
+					console.log('New past order created.');
+				},
+				function(error) {
+					console.log(error);
+					console.log('Failed to create a new past order.');
+				});
 
-});
+	});
 
 module.exports = router;
