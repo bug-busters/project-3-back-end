@@ -49,25 +49,6 @@ module.exports = function(mongoose) {
 		}
 	});
 
-	pastOrderSchema.virtual('grandTotal').get(function() {
-		var total = 0.00;
-
-		this.products.forEach(function(product) {
-			total += product.price * product.quantity;
-		});
-
-		return total;
-	});
-
-	pastOrderSchema.virtual('subtotal').get(function() {
-		var subTotalArr = {};
-
-		this.products.forEach(function(product) {
-			subTotalArr[product.sku] = product.price * product.quantity;
-		});
-		return subTotalArr;
-	});
-
 	var PastOrder = mongoose.model('PastOrder', pastOrderSchema);
 
 	return PastOrder;
