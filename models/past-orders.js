@@ -19,7 +19,6 @@ module.exports = function(mongoose) {
 			sku: {
 				type: Number,
 				required: true,
-				unique: true,
 				validates: {
 					isInt: true
 				}
@@ -39,7 +38,6 @@ module.exports = function(mongoose) {
 			quantity: {
 				type: Number,
 				required: true,
-				unique: true,
 				validates: {
 					isInt: true
 				}
@@ -67,7 +65,6 @@ module.exports = function(mongoose) {
 		this.products.forEach(function(product) {
 			subTotalArr[product.sku] = product.price * product.quantity;
 		});
-
 		return subTotalArr;
 	});
 
