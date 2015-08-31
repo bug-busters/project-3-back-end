@@ -8,34 +8,17 @@ router.route('/:user_id')
 		models.PastOrder.find({
 					'user_id': req.params.user_id
 				},
-				'orderDate status products grandTotal',
-				function(err, pastOrders) {
-					if (err) {
-						console.error('An error occurred while searching for past orders.');
-						console.error(err);
-						res.sendStatus(500);
-					} else {
-						var i = 0;
-						var orderHistory = {};
-
-						pastOrders.forEach(function(pastOrder) {
-							orderHistory[++i] = pastOrder;
-						});
-					}
-				})
-			.then(function(orderHistory) {
-				res.status(200).json(orderHistory);
-			}, function(err) {
-				console.error('An error occurred after processing past orders.');
-				console.error(err);
-				res.sendStatus(500);
-			});
+				'orderDate status products')
+			.then(function(result) {
+					res.status(200).json(result);
+				},
+				function(err) {
+					console.error('An error occurred after processing past orders.');
+					console.error(err);
+					res.sendStatus(500);
+				});
 	})
 	.post(function(req, res) {
-		// Create past order
-		console.log('post /pastorders/user_id');
-		console.log(req.body);
-
 		models.PastOrder.create(req.body)
 			.then(function(pastorder) {
 					res.json(pastorder);
