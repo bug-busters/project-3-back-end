@@ -34,7 +34,7 @@ router.route('/:user_id')
 							skus.push(sku);
 
 							outgoingCart.products[sku] = {};
-							outgoingCart.products[sku].quantity = productsJSON[s`ku].quantity;
+							outgoingCart.products[sku].quantity = productsJSON[sku].quantity;
 						}
 					}
 
