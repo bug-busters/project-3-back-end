@@ -34,7 +34,7 @@ router.route('/:user_id')
 							skus.push(sku);
 
 							outgoingCart.products[sku] = {};
-							outgoingCart.products[sku].quantity = productsJSON[sku];
+							outgoingCart.products[sku].quantity = productsJSON[s`ku].quantity;
 						}
 					}
 
@@ -45,6 +45,7 @@ router.route('/:user_id')
 								$in: skus
 							}
 						}, 'sku title price', function(error, products) {
+
 							// Populate title and price fields for each SKU key.
 							products.forEach(function(product) {
 								outgoingCart.products[product.sku].title = product.title;
@@ -52,7 +53,9 @@ router.route('/:user_id')
 							});
 						})
 						.then(function() {
+
 							// Populate subtotals and grandTotal in totals key.
+							// TODO This code doesn't work
 							for (var product in outgoingCart.products) {
 								if (outgoingCart.products.hasOwnProperty(product)) {
 									outgoingCart.totals.subtotals[product] = outgoingCart.products[product].quantity * outgoingCart.products[product].price;
@@ -111,60 +114,5 @@ router.route('/:user_id')
 					console.log('PATCH /cart/:user_id Failed to initialize the cart.');
 				});
 	});
-
-// router.route('/stripe/')
-// .post(function(req, res) {
-// 	// (Assuming you're using express - expressjs.com)
-// 	// Get the credit card details submitted by the form
-// 	var stripeToken = request.body.stripeToken;
-// 	.then(function() {
-// 		res.json(stripeToken);
-// 	},
-// 	function(error) {
-// 		console.log(error);
-// 	});
-// });
-
-// router.route('/:id')
-//   // Show cart by ID
-//   .all(function (req, res, next) {
-//     models.Cart.findById(req.params.id)
-//     .then(function(user) {
-//       res.locals.cart = cart;
-//       next();
-//     },
-//     function (error) {
-//       next(error);
-//       console.log(error);
-//     });
-//   })
-//   .get(function (req, res) {
-//     //Sends the get cart by USERID request
-//     models.Cart.findByUserID(req.params.User.id)
-//       .then(function (cart) {
-//         res.json(cart);
-//       },
-//       function (error) {
-//         console.log(error);
-//       });
-//   })
-//   .patch(function (req, res) {
-//     //Updates the cart
-//     res.locals.product.update(req.body)
-//       .then(function (cart) {
-//         res.json(cart);
-//       },
-//       function (error) {
-//         res.sendStatus(500);
-//         console.log('error is updating the cart');
-//       });
-//   })
-//   .delete(function (req, res) {
-//     res.sendStatus(404);
-//     console.log('error in deleting the product');
-//   })
-//   .all(function (error, req, res, next) {
-//     res.sendStatus(404);
-//   });
 
 module.exports = router;
