@@ -50,6 +50,7 @@ router.route('/:user_id')
 							products.forEach(function(product) {
 								outgoingCart.products[product.sku].title = product.title;
 								outgoingCart.products[product.sku].price = product.price;
+								outgoingCart.products[product.sku].sku = product.sku;
 							});
 						})
 						.then(function() {
