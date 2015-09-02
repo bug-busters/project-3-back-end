@@ -23,7 +23,7 @@ router.route('/:user_id')
 				attributes: ['products']
 			})
 			.then(function(cart) {
-					var productsJSON = JSON.parse(cart.products);
+					var productsJSON = cart.products;
 					var skus = [];
 
 					// Create an array of SKUs for the mongoDB query later.
