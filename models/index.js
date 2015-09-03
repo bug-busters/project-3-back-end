@@ -3,7 +3,7 @@
 require('dotenv').load();
 
 var database = {
-	name:     process.env.DB_NAME,
+	name:     process.env.DATABASE_URL,
 	username: process.env.DB_USERNAME,
 	password: process.env.DB_PASSWORD,
 	info: {
@@ -17,7 +17,7 @@ var Sequelize = require('sequelize');
 var sequelize = new Sequelize(database.name, database.username, database.password, database.info);
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/syntactic_sugar');
+mongoose.connect(process.env.MONGOLAB_URI);
 
 var models = {};
 
