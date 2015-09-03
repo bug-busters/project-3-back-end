@@ -15,5 +15,7 @@
 (planningDocs/data-modeling1_720.jpg)
 (planningDocs/data-modeling2_360.jpg)
 
-
 The back end uses NodeJS, Express, MongoDB and PostgresSQL to create databases that keep track of products and user information. This information is used to keep track of user purchases with a cart.
+
+##### Front End repository
+- [Syntactic Sugar Front End] (https://github.com/bug-busters/project-3-front-end)
