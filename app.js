@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -8,7 +10,11 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var bodyParser = require('body-parser');
 var uuid = require('uuid');
-require('dotenv').load();
+
+if (process.env.NODE_ENVIRONMENT === "development") {
+	require('dotenv').load();
+}
+
 var mongoose = require('mongoose');
 var cors = require('cors');
 var stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KET);
