@@ -20,7 +20,7 @@ if (!process.env.DATABASE_URL) {
 	var sequelize = new Sequelize(database.name, database.username, database.password, database.info);
 } else {
 	 var match = process.env.DATABASE_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/);
-	 var sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
+	 var sequelize = new Sequelize(process.env.DATABASE_URL, {
 	    dialect:  'postgres',
 	    protocol: 'postgres',
 	    port:     match[4],
