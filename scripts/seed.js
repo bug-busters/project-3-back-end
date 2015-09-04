@@ -66,7 +66,7 @@ models.Product.create({
 });
 
 
-db.pastorders.remove({});
+db.PastOrder.remove({});
 
 db.PastOrder.create({
   user_id: 1,
