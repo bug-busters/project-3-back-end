@@ -2,13 +2,15 @@
 
 require('dotenv').load();
 
+var heroku_port = +process.env.DB_PORT || 5000;
+
 var database = {
 	name:     process.env.DATABASE_URL,
 	username: process.env.DB_USERNAME,
 	password: process.env.DB_PASSWORD,
 	info: {
 		host:     process.env.DB_HOST,
-		port:    +process.env.DB_PORT,
+		port:    	heroku_port,
 		dialect:  process.env.DB_DIALECT
 	}
 };
