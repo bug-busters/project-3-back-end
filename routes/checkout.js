@@ -1,6 +1,9 @@
 'use strict';
 
-require('dotenv').load();
+if (process.env.NODE_ENVIRONMENT === "development") {
+	require('dotenv').load();
+}
+
 var express = require('express');
 var router = express.Router();
 var stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KEY);
