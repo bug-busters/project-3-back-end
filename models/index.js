@@ -1,6 +1,8 @@
 'use strict';
 
-require('dotenv').load();
+if (process.env.NODE_ENVIRONMENT === "development") {
+	require('dotenv').load();
+}
 
 var heroku_port = +process.env.DB_PORT || 5000;
 
