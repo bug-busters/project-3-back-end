@@ -3,22 +3,31 @@
 if (process.env.NODE_ENVIRONMENT === "development") {
 	require('dotenv').load();
 }
-
-var heroku_port = +process.env.DB_PORT || 5000;
-
-var database = {
-	name:     process.env.DATABASE_URL,
-	username: process.env.DB_USERNAME,
-	password: process.env.DB_PASSWORD,
-	info: {
-		host:     process.env.DB_HOST,
-		port:    	heroku_port,
-		dialect:  process.env.DB_DIALECT
-	}
-};
-
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize(database.name, database.username, database.password, database.info);
+
+var heroku_port = process.env.DB_PORT || 5000;
+if (!process.env.DATABASE_URL) {
+	var database = {
+		name:     process.env.DATABASE_URL,
+		username: process.env.DB_USERNAME,
+		password: process.env.DB_PASSWORD,
+		info: {
+			host:     process.env.DB_HOST,
+			port:    	heroku_port,
+			dialect:  process.env.DB_DIALECT
+		}
+	};
+	var sequelize = new Sequelize(database.name, database.username, database.password, database.info);
+} else {
+	 var match = process.env.DATABASE_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/);
+	 var sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
+	    dialect:  'postgres',
+	    protocol: 'postgres',
+	    port:     match[4],
+	    host:     match[3]
+	  });
+}
+
 
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGOLAB_URI);
