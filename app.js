@@ -41,7 +41,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(cors({
-	origin: 'http://localhost:5000',
+	origin: 'http://bug-busters.github.io/project-3-front-end',
 	credentials: true
 }));
 
