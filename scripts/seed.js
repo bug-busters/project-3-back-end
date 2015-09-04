@@ -1,6 +1,10 @@
 'use strict';
 
-var db = new Mongo().getDB('syntactic_sugar');
+// var db = new Mongo().getDB('syntactic_sugar');
+
+var connection = new Mongo('ds035583.mongolab.com:35583');
+
+var db = connection.getDB('heroku_5kgmkd64');
 
 // db.users.remove({});
 
