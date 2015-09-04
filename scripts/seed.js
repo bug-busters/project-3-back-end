@@ -95,7 +95,7 @@ models.PastOrder.create({
     ],
   status: 'delivered',
   grandTotal: 20.25,
-  orderDate: ISODate("2015-08-28T01:25:51.498Z")
+  orderDate: Date("2015-08-28T01:25:51.498Z")
 });
 
 models.PastOrder.create({
@@ -125,7 +125,7 @@ models.PastOrder.create({
     ],
   status: 'delivered',
   grandTotal: 11.25,
-  orderDate: ISODate("2015-08-28T01:25:51.498Z")
+  orderDate: Date("2015-08-28T01:25:51.498Z")
 });
 
 models.PastOrder.create({
@@ -155,7 +155,7 @@ models.PastOrder.create({
     ],
   status: 'delivered',
   grandTotal: 20.25,
-  orderDate: ISODate("2015-08-28T01:25:51.498Z")
+  orderDate: Date("2015-08-28T01:25:51.498Z")
 });
 
 models.PastOrder.create({
@@ -185,5 +185,5 @@ models.PastOrder.create({
     ],
   status: 'delivered',
   grandTotal: 11.25,
-  orderDate: ISODate("2015-08-28T01:25:51.498Z")
+  orderDate: Date("2015-08-28T01:25:51.498Z")
 });
