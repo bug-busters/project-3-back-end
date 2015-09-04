@@ -66,9 +66,9 @@ models.Product.create({
 });
 
 
-db.PastOrder.remove({});
+models.PastOrder.remove({});
 
-db.PastOrder.create({
+models.PastOrder.create({
   user_id: 1,
   products: [
       {
@@ -98,7 +98,7 @@ db.PastOrder.create({
   orderDate: ISODate("2015-08-28T01:25:51.498Z")
 });
 
-db.PastOrder.create({
+models.PastOrder.create({
   user_id: 1,
   products: [
       {
@@ -128,7 +128,7 @@ db.PastOrder.create({
   orderDate: ISODate("2015-08-28T01:25:51.498Z")
 });
 
-db.PastOrder.create({
+models.PastOrder.create({
   user_id: 2,
   products: [
       {
@@ -158,7 +158,7 @@ db.PastOrder.create({
   orderDate: ISODate("2015-08-28T01:25:51.498Z")
 });
 
-db.PastOrder.create({
+models.PastOrder.create({
   user_id: 2,
   products: [
       {
