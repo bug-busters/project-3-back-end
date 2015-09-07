@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(cors({
-	origin: '*',
+	origin: ['http://www.c0re.net', /\.c0re\.net$/, /\.github\.io$/],
 	credentials: true
 }));
 
