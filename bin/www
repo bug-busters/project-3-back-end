@@ -15,7 +15,7 @@ var models = require('../models/index');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.HTTP_PORT || '3000');
+var port = normalizePort(process.env.SYNTACTIC_SUGAR_HTTP_PORT || '3000');
 app.set('port', port);
 
 /**

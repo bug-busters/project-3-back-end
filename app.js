@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,13 +9,13 @@ var MongoStore = require('connect-mongo')(session);
 var bodyParser = require('body-parser');
 var uuid = require('uuid');
 
-if (process.env.NODE_ENVIRONMENT === "development") {
+if (process.env.SYNTACTIC_SUGAR_NODE_ENVIRONMENT === 'development') {
 	require('dotenv').load();
 }
 
 var mongoose = require('mongoose');
 var cors = require('cors');
-var stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KET);
+var stripe = require('stripe')(process.env.SYNTACTIC_SUGAR_STRIPE_TEST_SECRET_KET);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -41,14 +39,14 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(cors({
-	origin: 'http://localhost:5000',
+	origin: '*',
 	credentials: true
 }));
 
 app.options('*', cors());
 
 app.use(session({
-	secret: process.env.SESSION_SECRET,
+	secret: process.env.SYNTACTIC_SUGAR_SESSION_SECRET,
 	saveUninitialized: false,
 	store: new MongoStore({
 		mongooseConnection: mongoose.connection
@@ -69,12 +67,12 @@ var passport = require('./lib/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/products', products);
-app.use('/cart', cart);
-app.use('/pastorders', pastorders);
-app.use('/checkout', checkout);
+app.use('/api/syntactic_sugar/', routes);
+app.use('/api/syntactic_sugar/users', users);
+app.use('/api/syntactic_sugar/products', products);
+app.use('/api/syntactic_sugar/cart', cart);
+app.use('/api/syntactic_sugar/pastorders', pastorders);
+app.use('/api/syntactic_sugar/checkout', checkout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

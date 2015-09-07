@@ -3,7 +3,7 @@
 require('dotenv').load();
 var express = require('express');
 var router = express.Router();
-var stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KEY);
+var stripe = require('stripe')(process.env.SYNTACTIC_SUGAR_STRIPE_TEST_SECRET_KEY);
 
 router.route('/')
 	.get(function(req, res) {

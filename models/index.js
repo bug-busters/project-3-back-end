@@ -1,19 +1,19 @@
 'use strict';
 
-if (process.env.NODE_ENVIRONMENT === "development") {
+if (process.env.SYNTACTIC_SUGAR_NODE_ENVIRONMENT === 'development') {
 	require('dotenv').load();
 }
 
-var heroku_port = +process.env.DB_PORT || 5000;
+var heroku_port = +process.env.SYNTACTIC_SUGAR_DB_PORT || 5000;
 
 var database = {
-	name:     process.env.DATABASE_URL,
-	username: process.env.DB_USERNAME,
-	password: process.env.DB_PASSWORD,
+	name: process.env.SYNTACTIC_SUGAR_DATABASE_URL,
+	username: process.env.SYNTACTIC_SUGAR_DB_USERNAME,
+	password: process.env.SYNTACTIC_SUGAR_DB_PASSWORD,
 	info: {
-		host:     process.env.DB_HOST,
-		port:    	heroku_port,
-		dialect:  process.env.DB_DIALECT
+		host: process.env.SYNTACTIC_SUGAR_DB_HOST,
+		port: heroku_port,
+		dialect: process.env.SYNTACTIC_SUGAR_DB_DIALECT
 	}
 };
 
@@ -21,7 +21,7 @@ var Sequelize = require('sequelize');
 var sequelize = new Sequelize(database.name, database.username, database.password, database.info);
 
 var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGOLAB_URI);
+mongoose.connect(process.env.SYNTACTIC_SUGAR_MONGOLAB_URI);
 
 var models = {};
 
