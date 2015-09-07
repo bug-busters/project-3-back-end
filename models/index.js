@@ -3,7 +3,7 @@
 require('dotenv').load();
 
 var database = {
-	name: process.env.SYNTACTIC_SUGAR_DATABASE_URL,
+	name: process.env.SYNTACTIC_SUGAR_DB_NAME,
 	username: process.env.SYNTACTIC_SUGAR_DB_USERNAME,
 	password: process.env.SYNTACTIC_SUGAR_DB_PASSWORD,
 	info: {
