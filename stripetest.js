@@ -2,7 +2,7 @@
 
 require('dotenv').load();
 
-var stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KEY);
+var stripe = require('stripe')(process.env.SYNTACTIC_SUGAR_STRIPE_TEST_SECRET_KEY);
 
 var token = {
 	number: 4242424242424242,
