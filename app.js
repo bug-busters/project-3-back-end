@@ -63,12 +63,12 @@ var passport = require('./lib/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/api/syntactic_sugar/', routes);
-app.use('/api/syntactic_sugar/users', users);
-app.use('/api/syntactic_sugar/products', products);
-app.use('/api/syntactic_sugar/cart', cart);
-app.use('/api/syntactic_sugar/pastorders', pastorders);
-app.use('/api/syntactic_sugar/checkout', checkout);
+app.use('/', routes);
+app.use('/users', users);
+app.use('/products', products);
+app.use('/cart', cart);
+app.use('/pastorders', pastorders);
+app.use('/checkout', checkout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
